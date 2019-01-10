@@ -1,41 +1,54 @@
-//makes list of the srings in the array and prints to console. cant fiusre out why it wont print to html.
+function displayTopicInfo() {
+    var topics = $(this).attr("data-topic")
 
-// function list(){
+    var queryURL = "https://api.giphy.com/v1/gifs/search?q=" + topics + "&api_key=buInTtB1bpXKiS2U2tr5ndPo9rVGLJE9&limit=10";
 
-//     var topic = ["Supercross", "Soccer", "Basketball", "Football", "Hockey","Tennis", "BMX", "Skate Boarding", "Motocross", "Nascar", "Cricket"];
+    $.ajax({
+        url: queryURL,
+        method: "GET"
+    }).then(function (response) {
+        $("#topic-view").text(JSON.stringify(response));
+    });
 
-//     var topicContainer = document.createElement('div');
+};
 
-//     document.getElementsByTagName('body')[0].appendChild(topicContainer);
+var topic = ["Supercross", "Soccer", "Basketball", "Football", "Hockey", "Tennis", "BMX", "Skate Boarding", "Motocross", "Nascar", "Cricket"];
+// renter buttons works
+function renderBtns() {
 
-//     var listElement = document.createElement('ul');
+    $("#buttons").empty();
 
-//     var numberOfListItems = topic.length;
-
-//     for (var i = 0; i < numberOfListItems; i++){
-//     var listItem = document.createElement('li');
-//     listItem.innerHTML = topic[i];
-//     listElement.appendChild(listItem);
-//     console.log(listItem);
-//     };
-
-// }
-
-// list();
-
-
-// create a variable with multiple strings in an array
-var topic = ["Supercross", "Soccer", "Basketball", "Football", "Hockey","Tennis", "BMX", "Skate Boarding", "Motocross", "Nascar", "Cricket"];
-
-// create a function that prints out a list of buttons to the HTML
-function printBtn(){
     for (var i = 0; i < topic.length; i++) {
-        var btn =document.createElement("button");
-        var t = document.createTextNode(topic[i]);
-        btn.appendChild(t);
-        document.body.appendChild(btn);
+
+        var topicBtn = $("<button>");
+        topicBtn.addClass("topic-button topic topic-button-color")
+        topicBtn.attr("data-topic", topic[i]);
+        topicBtn.text(topic[i]);
+        $("#buttons").append(topicBtn);
     };
 };
 
-// api key
+// looks to be able to click through buttons and send to ajax
+$(".topic-button").on("click"), function(){
+    var topicPush = $("<div>");
+    topicPush.addClass("letter topic-color");
+    topicPush.text($(this).attr("data-topic"));
+    $("#display").append(topicPush);
+    console.log(topicPush);
+};
+
+
+
+// $("#add-topic").on("click", function(event){
+//     event.preventDefault();
+//     var topics = $("#topic-input").val().trim();
+//     topic.push(topics);
+//     console.log(topic)
+//     $("#topic-input").val('');
+//     renderBtns();
+// });
+
+$(document).on("click",".topic-button", displayTopicInfo);
+
+renderBtns();
 
