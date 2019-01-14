@@ -75,8 +75,40 @@ $(document).on("click", ".stillGif",function() {
       $(this).attr("src", $(this).attr("data-still"));
       $(this).attr("imageState", "notPlaying");
     }
-});
+  });
 
 
 
 renderBtns();
+
+
+
+
+
+
+// new bs
+
+var topic = ["Supercross", "Soccer", "Basketball", "Football", "Hockey", "Tennis", "BMX", "Skate Boarding", "Motocross", "Nascar", "Cricket"];
+
+function renderButtons() {
+
+   $("buttons-view").empty();
+
+    for (var i = 0; i < topic.length; i++){
+        var topicBtn = $("<button>");
+        topicBtn.addClass("topics");
+        topicBtn.attr("data-name")
+        topicBtn.text(topic[i]);
+        $("#buttons-view").append(topicBtn);
+    };
+};
+$("#add-topic").on("click", function(event){
+    event.preventDefault();
+
+    var topics = $("#topic-input").val().trim();
+    topics.push(topic);
+    $("#topic-input").val('');
+    renderButtons();
+})
+
+renderButtons();
