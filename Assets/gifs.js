@@ -16,7 +16,7 @@ function displayTopicInfo() {
         method: "GET",
     }).then(function (response) {
         
-        for (var i = 0; response.data.length; i++) {
+        for (var i = 0; i < response.data.length; i++) {
             still = response.data[i].images.downsized_still.url;
             rating = response.data[i].rating;
             gifPlay = response.data[i].images.original.url;
