@@ -7,21 +7,20 @@ function displayTopicInfo() {
 
     var topics = $(this).attr("data-topic")
 
-    
-
     var queryURL = "https://api.giphy.com/v1/gifs/search?q=" + topics + "&api_key=dc6zaTOxFJmzC&limit=10";
-    console.log(topics);
+    
     $.ajax({
         url: queryURL,
         method: "GET",
     }).then(function (response) {
         
         for (var i = 0; i < response.data.length; i++) {
+           
             still = response.data[i].images.downsized_still.url;
             rating = response.data[i].rating;
             gifPlay = response.data[i].images.original.url;
             $("#gifDisplay").prepend("<figure><img class = 'stillGif' id='playGif' src="+still+"animated="+gifPlay+"stillImage="+still+"imageState ='notPlaying' height='200' width='300'></img></figure>");
-
+            
         };
         
     });
@@ -62,9 +61,10 @@ $("#addInput").on("click", function (event) {
     renderBtns();
 });
 
-// pause play images
 $(document).on("click", ".topic-button", displayTopicInfo);
-$(document).on("click", ".stillGif",function() {
+
+// pause play images not working
+$(".stillGif").on("click",function() {
    
     var state = $(this).attr("imageState");
  
@@ -72,11 +72,9 @@ $(document).on("click", ".stillGif",function() {
       $(this).attr("src", $(this).attr("animated"));
       $(this).attr("imageState", "animate");
     } else {
-      $(this).attr("src", $(this).attr("data-still"));
+      $(this).attr("src", $(this).attr("stillImage"));
       $(this).attr("imageState", "notPlaying");
     }
 });
-
-
 
 renderBtns();
