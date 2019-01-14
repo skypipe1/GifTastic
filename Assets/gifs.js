@@ -9,7 +9,7 @@ function displayTopicInfo() {
 
     
 
-    var queryURL = "https://api.giphy.com/v1/gifs/search?q=" + topics + "&api_key=buInTtB1bpXKiS2U2tr5ndPo9rVGLJE9&limit=10";
+    var queryURL = "https://api.giphy.com/v1/gifs/search?q=" + topics + "&api_key=dc6zaTOxFJmzC&limit=10";
     console.log(topics);
     $.ajax({
         url: queryURL,
@@ -20,7 +20,7 @@ function displayTopicInfo() {
             still = response.data[i].images.downsized_still.url;
             rating = response.data[i].rating;
             gifPlay = response.data[i].images.original.url;
-            $("#gifDisplay").append("<figure><img class = 'stillGif' id='playGif' src="+still+"animated="+gifPlay+"stillImage="+still+"imageState ='notPlaying' height='200' width='300'></img></figure>");
+            $("#gifDisplay").prepend("<figure><img class = 'stillGif' id='playGif' src="+still+"animated="+gifPlay+"stillImage="+still+"imageState ='notPlaying' height='200' width='300'></img></figure>");
 
         };
         
