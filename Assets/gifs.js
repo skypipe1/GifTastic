@@ -19,7 +19,8 @@ function displayTopicInfo() {
             still = response.data[i].images.downsized_still.url;
             rating = response.data[i].rating;
             gifPlay = response.data[i].images.original.url;
-            $("#gifDisplay").prepend("<figure><img class = 'stillGif' id='playGif' src="+still+"animated="+gifPlay+"stillImage="+still+"imageState ='notPlaying' height='200' width='300'></img></figure>");
+            $("#gifDisplay").prepend("<figure><img class='stillGif' id='playGif' src="+still+" data-still="+ still +" data-animate="+gifPlay+" data-imageState='notPlaying' height='200' width='300'/></figure>");
+            
             
         };
         
@@ -64,15 +65,15 @@ $("#addInput").on("click", function (event) {
 $(document).on("click", ".topic-button", displayTopicInfo);
 
 // pause play images not working
-$(".stillGif").on("click",function() {
+$(document).on("click",".stillGif", function() {
    
     var state = $(this).attr("imageState");
  
     if (state === "notPlaying") {
-      $(this).attr("src", $(this).attr("animated"));
+      $(this).attr("src", $(this).attr("data-animate"));
       $(this).attr("imageState", "animate");
     } else {
-      $(this).attr("src", $(this).attr("stillImage"));
+      $(this).attr("src", $(this).attr("data-still"));
       $(this).attr("imageState", "notPlaying");
     }
 });
